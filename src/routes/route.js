@@ -1,38 +1,90 @@
 const express = require('express');
-const abc = require('../introduction/intro')
+
 const router = express.Router();
 
-router.get('/test-me', function (req, res) {
-    console.log('My batch is', abc.name)
-    abc.printName()
-    logger.welcome()
+// Problem No-1
 
-    res.send('My second ever api!')
+router.get('/movies', function (req, res) {
+
+    let movies = ["dabang", "RRR", "KGF2", "PUSHPA", "DDLG", "major", "The Kashmir Files", "Runway 34", "Shamshera", "Avenger", "Spiderman-no way home", "Gangubai Kathiawadi"]
+res.send(movies)
 });
 
-router.get('/students', function (req, res){
-    let students = ['Sabiha', 'Neha', 'Akash']
-    res.send(students)
-})
+// Problem No-2 + Problem No-3
 
-router.get('/student-details/:name', function(req, res){
-    /*
-    params is an attribute inside request that contains 
-    dynamic values.
-    This value comes from the request url in the form of an 
-    object where key is the variable defined in code 
-    and value is what is sent in the request
-    */
+router.get('/movies/:indexNumber', function (req, res) {
 
-    let requestParams = req.params
+    let movies = [ "The Kashmir Files", "Runway 34", "Shamshera", , "Spiderman-no way home", "Gangubai Kathiawadi"]
+    let movieIndex = req.params.indexNumber
+    let finalMovieslist = " ";
+    if (movieIndex < movies.length) {
+        finalMovieslist = movies[movieIndex] 
+    } else {
+        finalMovieslist = ("Movies doesn not exist " + movies.length)
+    }
+res.send(finalMovieslist)
 
-    // JSON strigify function helps to print an entire object
-    // We can use any ways to print an object in Javascript, JSON stringify is one of them
-    console.log("This is the request "+ JSON.stringify(requestParams))
-    let studentName = requestParams.name
-    console.log('Name of the student is ', studentName)
+});
+
+// // Problem No-4 
+
+router.get('/films', function (req, res) {
+
+    let arr = [ {
+        id: 1,
+        name: "The Shining",
+       }, {
+        id: 2,
+        name: "Incendies",
+       }, {
+        id: 3,
+        name: "Rang de Basanti",
+       }, {
+        id: 4,
+        name: "Finding Nemo",
+       }]
+
+res.send(arr)
+
+});
+
+// // Problem No-5
+
+router.get('/films/:filmId', function (req, res) {
+
+    let arr = [ {
+        id: 1,
+        name: "The Shining",
+       }, {
+        id: 2,
+        name: "Incendies",
+       }, {
+        id: 3,
+        name: "Rang de Basanti",
+       }, {
+        id: 4,
+        name: "Finding Nemo",
+       }]
+       
+       filmIndex = req.params.filmId
+
+       function idLookup (x) {
+        return x.id ;
+    }
+    let getId = arr.map (idLookup)
     
-    res.send('Dummy response')
-})
+       let finalFilm = " " 
+    
+       if ( filmIndex <= getId.length ) {
+           finalFilm = arr[filmIndex-1]
+       } else {
+           finalFilm = ( "Please enter number equal to or below := " + getId.length + ",No movie exists with this id")
+       }
+
+res.send(finalFilm)
+
+});
+
 
 module.exports = router;
+// adding this comment for no reason
