@@ -1,46 +1,34 @@
 const express = require('express');
-const abc = require('../introduction/intro')
+
 const router = express.Router();
-const moudle1=require('../logger/logger')
-const Module2=require('../util/helper')
-const moudle3=require('../validator/formatter')
+const lodash = require('lodash')
 
-
-//problem-1
-
-// router.get('/test-me', function (req, res) {
-//     moudle1.welcome()
-//     // abc.printName()
-//     res.send('My 1st ever api!')
-
-// });
-
-//problem-2
-
-// router.get('/test-me', function(req, res){
-//     Module2.printdate()
-//     Module2.printMonth()
-//     Module2.getBatchInfo()
-//     res.send('My 2nd ever api!')
+router.get('/myapi', function (req, res) {
+    // Problem a)
+    let months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+    let subArrays = lodash.chunk(months, 3)
+    console.log('The result after splitting the months array is ', subArrays)
     
-// })
+    // Problem b)
+    
+    let oddNumbers = [1,3,5,7,9,11,13,15,17,19]
+    console.log('The last 9 odd numbers in the array are: ', lodash.tail(oddNumbers))
+    
+    // Problem c)
+    let a = [1 , 2, 8, 5,3]
+    let b = [2, 3, 4,5,4,5,6,4,3]
+    let c = [6, 1, 5, 12,48,6,34]
+    let d = [1, 1, 34,34,48,642,42]
+    let e = [1, 12, 3,5,235,32,78,9,78]
+    
+    console.log('Final array or unique numbers is : ', lodash.union(a, b, c, d, e))
+    
+    // Problem d)
+    let arrayOfKeyValuePairs = [["action","PUSHPA"],["drama","major"],["fullaction","K G F2"],["comedy","Dhamaal"],["historical","Samrat Prithviraj"]]
+    console.log('The object created from arrays is :', lodash.fromPairs(arrayOfKeyValuePairs))
+        res.send('my new api')
+    });
 
-// problem-3
 
-// router.get('/test-me', function(req, res){
-//     moudle3.trimname()
-//     res.send('My 3rd ever api!')
-
-// })
-
-// done problems
-
-router.get('/test-you', function(req, res){
-    res.send('This is the second routes implementation')
-})
-
-router.get('/give-me-students-data',function(req, res){
-
-})
 module.exports = router;
 // adding this comment for no reason
