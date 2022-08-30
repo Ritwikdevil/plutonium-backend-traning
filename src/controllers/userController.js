@@ -73,7 +73,7 @@ const updateUser = async function (req, res) {
     let user = await userModel.findById(userId);
     //Return an error if no user with the given id exists in the db
     if (!user) {
-      return res.send("No such user exists");
+      return res.status(404).send("No such user exists");
     }
 
     let userData = req.body;
