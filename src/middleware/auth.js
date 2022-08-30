@@ -6,7 +6,7 @@ const authMid = function(req, res, next){
   try{
     let token = req.headers["x-Auth-token"];
 if (!token) token = req.headers["x-auth-token"];
-if (!token) return res.send({ status: false, msg: "token must be present" });
+if (!token) return res.status(401).send({ status: false, msg: "token must be present" });
 //  console.log(token)
 next();
   }
@@ -23,11 +23,11 @@ const authorise = async function (req, res, next) {
   let token = req.headers["x-auth-token"];
   let decodedToken = jwt.verify(token, "functionup-plutonium-Ritwik-secret-key");
   if (!decodedToken)
-      return res.send({ status: false, msg: "token is invalid" });
+      return res.status(401).send({ status: false, msg: "token is invalid" });
   let userId = req.params.userId;
   let decordDetails = decodedToken.userId
   if (userId != decordDetails) {
-      return res.send("Can't login with this user and not allowed to modify the requested users data.")
+      return res.status(403).send("Can't login with this user and not allowed to modify the requested users data.")
   }
   next()
 }catch(error){
